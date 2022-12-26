@@ -6,40 +6,41 @@ import Home from "./Home";
 import Login from "./Login";
 
 function App() {
-  const [user, setUser] = useState(null);
+	const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    fetch("/me").then((response) => {
-      if (response.ok) {
-        response.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
+	useEffect(() => {
+		fetch("/me").then((response) => {
+			if (response.ok) {
+				response.json().then((user) => setUser(user));
+			}
+		});
+	}, []);
 
-  function handleLogin(user) {
-    setUser(user);
-  }
+	function handleLogin(user) {
+		setUser(user);
+	}
 
-  function handleLogout() {
-    setUser(null);
-  }
+	function handleLogout() {
+		setUser(null);
+	}
 
-  return (
-    <div className="App">
-      <Header user={user} onLogout={handleLogout} />
-      <Switch>
-        <Route exact path="/articles/:id">
-          <Article />
-        </Route>
-        <Route exact path="/login">
-          <Login onLogin={handleLogin} />
-        </Route>
-        <Route exact path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Switch>
+				<Route exact path="/articles/:id">
+					<Header user={user} onLogout={handleLogout} />
+					<Article />
+				</Route>
+				<Route exact path="/login">
+					<Login onLogin={handleLogin} />
+				</Route>
+				<Route exact path="/">
+					<Header user={user} onLogout={handleLogout} />
+					<Home />
+				</Route>
+			</Switch>
+		</div>
+	);
 }
 
 export default App;

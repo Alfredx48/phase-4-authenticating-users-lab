@@ -13,7 +13,7 @@ function Login({ onLogin }) {
       body: JSON.stringify({ username }),
     }).then((r) => {
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => onLogin(user)); 
       }
     });
   }
